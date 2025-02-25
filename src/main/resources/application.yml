@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/MyDatabase
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: MongoDB
+
+  web:
+    resources:
+      static-locations: file:///D:/Desktop/vue/vue-admin-template-master/src/assets/
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        acknowledge-mode: manual  # 手动确认模式
