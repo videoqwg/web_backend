@@ -1,7 +1,9 @@
 package com.ruoyi.system.mapper;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.system.domain.SysLogininfor;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 系统访问日志情况信息 数据层
@@ -39,4 +41,13 @@ public interface SysLogininforMapper
      * @return 结果
      */
     public int cleanLogininfor();
+
+    /**
+     * 查询从今天到前6天每天的在线人数
+     *
+     * @param startDate 开始时间
+     * @param endDate   结束时间
+     * @return 每天的在线人数统计结果
+     */
+    List<SysLogininfor> countDailyActiveUsers(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

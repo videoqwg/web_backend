@@ -53,5 +53,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="cleanLogininfor">
         truncate table sys_logininfor
     </update>
+
+	<select id="countDailyActiveUsers" resultType="map">
+		SELECT
+			DATE(login_time) AS date,
+			COUNT(DISTINCT user_name) AS user_count
+		FROM
+			sys_logininfor
+		WHERE
+			login_time BETWEEN #{startDate} AND #{endDate}
+		GROUP BY
+			DATE(login_time)
+		ORDER BY
+			date ASC;
+	</select>
     
 </mapper> 

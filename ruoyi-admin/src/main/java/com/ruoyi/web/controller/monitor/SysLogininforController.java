@@ -79,4 +79,10 @@ public class SysLogininforController extends BaseController
         passwordService.clearLoginRecordCache(userName);
         return success();
     }
+
+    @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
+    @GetMapping("/dailyActiveUsers")
+    public TableDataInfo getDailyActiveUsers() {
+        return getDataTable(logininforService.getDailyActiveUsersLast7Days());
+    }
 }

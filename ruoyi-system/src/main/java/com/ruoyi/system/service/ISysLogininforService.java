@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.system.domain.SysLogininfor;
 
 /**
@@ -37,4 +39,11 @@ public interface ISysLogininforService
      * 清空系统登录日志
      */
     public void cleanLogininfor();
+
+    /**
+     * 查询从今天到前6天每天的在线人数
+     *
+     * @return 每天的在线人数统计结果
+     */
+    List<SysLogininfor> getDailyActiveUsersLast7Days();
 }

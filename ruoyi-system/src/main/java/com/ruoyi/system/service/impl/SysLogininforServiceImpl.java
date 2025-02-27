@@ -1,6 +1,10 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.domain.SysLogininfor;
@@ -61,5 +65,19 @@ public class SysLogininforServiceImpl implements ISysLogininforService
     public void cleanLogininfor()
     {
         logininforMapper.cleanLogininfor();
+    }
+
+    @Override
+    public List<SysLogininfor> getDailyActiveUsersLast7Days() {
+        // 获取当前时间
+        Calendar calendar = Calendar.getInstance();
+        Date endDate = calendar.getTime();
+
+        // 获取前6天的时间
+        calendar.add(Calendar.DAY_OF_MONTH, -6);
+        Date startDate = calendar.getTime();
+
+        // 调用 Mapper 查询
+        return logininforMapper.countDailyActiveUsers(startDate, endDate);
     }
 }

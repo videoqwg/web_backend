@@ -1,6 +1,10 @@
 package com.ruoyi.framework.web.service;
 
 import javax.annotation.Resource;
+
+import com.ruoyi.common.utils.ServletUtils;
+import com.ruoyi.common.utils.ip.AddressUtils;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -172,10 +176,13 @@ public class SysLoginService
      */
     public void recordLoginInfo(Long userId)
     {
+        UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
         SysUser sysUser = new SysUser();
         sysUser.setUserId(userId);
         sysUser.setLoginIp(IpUtils.getIpAddr());
         sysUser.setLoginDate(DateUtils.getNowDate());
+        sysUser.setLocation(AddressUtils.getRealAddressByIP(IpUtils.getIpAddr()));
+        sysUser.setOs(userAgent.getOperatingSystem().getName());
         userService.updateUserProfile(sysUser);
     }
 }
