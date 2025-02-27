@@ -89,6 +89,12 @@ public class SysUser extends BaseEntity
     /** 角色ID */
     private Long roleId;
 
+    @Excel(name = "登录地址")
+    private String location;
+
+    @Excel(name = "登录设备")
+    private String os;
+
     public SysUser()
     {
 
@@ -295,6 +301,22 @@ public class SysUser extends BaseEntity
     public void setRoleId(Long roleId)
     {
         this.roleId = roleId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
     }
 
     @Override

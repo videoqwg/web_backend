@@ -253,4 +253,27 @@ public class SysUserController extends BaseController
     {
         return success(deptService.selectDeptTreeList(dept));
     }
+
+
+    @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @GetMapping("/getCumulativeUserCount")
+    public TableDataInfo getCumulativeUserCount()
+    {
+        return getDataTable(userService.getCumulativeUserCount());
+    }
+
+
+    @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @GetMapping("/getTopRegion")
+    public TableDataInfo getTopRegion()
+    {
+        return getDataTable(userService.getTopRegion());
+    }
+
+    @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @GetMapping("/getDeviceUserCounts")
+    public TableDataInfo getDeviceUserCounts()
+    {
+        return getDataTable(userService.getDeviceUserCounts());
+    }
 }

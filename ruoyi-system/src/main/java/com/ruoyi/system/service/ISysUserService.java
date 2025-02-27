@@ -203,4 +203,11 @@ public interface ISysUserService
      * @return 结果
      */
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
+
+
+    public List<SysUser> getCumulativeUserCount();
+
+    public List<SysUser> getTopRegion();
+
+    public List<SysUser> getDeviceUserCounts();
 }

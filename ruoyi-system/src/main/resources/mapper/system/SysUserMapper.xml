@@ -190,6 +190,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="loginDate != null">login_date = #{loginDate},</if>
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			<if test="remark != null">remark = #{remark},</if>
+			<if test="location != null">location = #{location},</if>
+			<if test="os != null">os = #{os},</if>
  			update_time = sysdate()
  		</set>
  		where user_id = #{userId}
@@ -217,5 +219,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			#{userId}
         </foreach> 
  	</delete>
+
+	<select id="getCumulativeUserCount" resultType="map">
+		SELECT
+		date_series.date,
+		(SELECT COUNT(*)
+		FROM sys_user
+		WHERE sys_user.create_time &lt;= date_series.date + INTERVAL 1 DAY
+		) AS user_count
+		FROM (
+		SELECT CURDATE() - INTERVAL 0 DAY AS date
+		UNION ALL
+		SELECT CURDATE() - INTERVAL 1 DAY
+		UNION ALL
+		SELECT CURDATE() - INTERVAL 2 DAY
+		UNION ALL
+		SELECT CURDATE() - INTERVAL 3 DAY
+		UNION ALL
+		SELECT CURDATE() - INTERVAL 4 DAY
+		UNION ALL
+		SELECT CURDATE() - INTERVAL 5 DAY
+		UNION ALL
+		SELECT CURDATE() - INTERVAL 6 DAY
+		) AS date_series
+		ORDER BY date_series.date;
+	</select>
+
+	<select id="getTopRegion" resultType="map">
+		SELECT location AS name, COUNT(*) AS value
+		FROM sys_user
+		WHERE location != '内网IP'
+		GROUP BY location
+		ORDER BY value DESC
+		LIMIT 5;
+
+	</select>
+
+	<select id="getDeviceUserCount" resultType="map">
+		SELECT os AS name, COUNT(*) AS value
+		FROM sys_user
+		WHERE os IS NOT NULL
+		GROUP BY os;
+	</select>
 	
 </mapper> 

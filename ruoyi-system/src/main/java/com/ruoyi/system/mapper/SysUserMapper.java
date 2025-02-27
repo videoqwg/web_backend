@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.common.core.domain.entity.SysUser;
 
@@ -124,4 +126,8 @@ public interface SysUserMapper
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    List<SysUser> getCumulativeUserCount();
+    List<SysUser> getTopRegion();
+    List<SysUser> getDeviceUserCount();
 }
